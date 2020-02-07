@@ -29,6 +29,12 @@ function fetchIssues() {
       '<span class="glyphicon glyphicon-user"></span> ' +
       assignedTo +
       "</p>" +
+      '<a href="#" class="btn btn-info" onclick="setStatusStandBy(\'' +
+      id +
+      "')\">Stand By</a> " +
+      '<a href="#" class="btn btn-success" onclick="setStatusInProgress(\'' +
+      id +
+      "')\">In Progress</a> " +
       '<a href="#" class="btn btn-warning" onclick="setStatusClosed(\'' +
       id +
       "')\">Close</a> " +
@@ -74,6 +80,36 @@ function saveIssue(e) {
   fetchIssues();
 
   e.preventDefault();
+}
+
+//// Working issues
+function setStatusStandBy(id) {
+  var issues = JSON.parse(localStorage.getItem("issues"));
+
+  for (var i = 0; i < issues.length; i++) {
+    if (issues[i].id == id) {
+      issues[i].status = "Stand By";
+    }
+  }
+
+  localStorage.setItem("issues", JSON.stringify(issues));
+
+  fetchIssues();
+}
+
+//// Working issues
+function setStatusInProgress(id) {
+  var issues = JSON.parse(localStorage.getItem("issues"));
+
+  for (var i = 0; i < issues.length; i++) {
+    if (issues[i].id == id) {
+      issues[i].status = "In Progress";
+    }
+  }
+
+  localStorage.setItem("issues", JSON.stringify(issues));
+
+  fetchIssues();
 }
 
 //// Closing issues
